@@ -1,0 +1,13 @@
+# Redirections pour les URLs mal formées
+/pergolas              /products/pergolas
+/abris                 /products/abris
+/portails              /products/portails
+/menuiseries           /products/menuiseries
+/a-propos              /about
+/qui-sommes-nous       /about
+/nous-contacter        /contact
+/mentions-legales      /legal
+/politique-confidentialite /privacy
+
+# Redirection de toutes les pages non trouvées vers la page 404
+/*                     /index.html     200

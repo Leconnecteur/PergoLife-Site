@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 215 33% 99%;
+    --foreground: 220 33% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 33% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 33% 15%;
+
+    --primary: 93 48% 31%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 93 50% 24%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 93 30% 96%;
+    --muted-foreground: 220 20% 40%;
+
+    --accent: 93 45% 42%;
+    --accent-foreground: 220 33% 15%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 93 48% 31%;
+
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  /* Animation Helpers */
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+  .animate-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  /* Hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 ease-out;
+  }
+  .hover-lift:hover {
+    @apply transform -translate-y-1;
+  }
+  
+  /* Glass effect */
+  .glass {
+    @apply bg-white/70 backdrop-blur-md;
+  }
+  
+  /* Hide scrollbar but allow scrolling */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Image reveal animation */
+  .image-reveal {
+    @apply overflow-hidden relative;
+  }
+  .image-reveal img {
+    @apply transition-transform duration-700 ease-out hover:scale-105;
+  }
+  
+  /* Text shadow for better readability */
+  .text-shadow {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  .text-shadow-strong {
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 3px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
