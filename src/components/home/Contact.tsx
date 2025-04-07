@@ -22,8 +22,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    content: "contact@pergolife.fr",
-    link: "mailto:contact@pergolife.fr",
+    content: "contact@pergo-life.fr",
+    link: "mailto:contact@pergo-life.fr",
     isExternal: false
   },
   {

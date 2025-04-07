@@ -65,7 +65,7 @@ const Privacy = () => {
               <li>Droit d'opposition : vous pouvez vous opposer au traitement de vos données pour des motifs légitimes.</li>
             </ul>
             <p className="mb-6">
-              Pour exercer ces droits, veuillez nous contacter par email à <a href="mailto:contact@pergolife.fr" className="text-pergo-secondary hover:text-pergo-dark">contact@pergolife.fr</a> ou par courrier à l'adresse indiquée à la fin de cette politique.
+              Pour exercer ces droits, veuillez nous contacter par email à <a href="mailto:contact@pergo-life.fr" className="text-pergo-secondary hover:text-pergo-dark">contact@pergo-life.fr</a> ou par courrier à l'adresse indiquée à la fin de cette politique.
             </p>
             
             <h2 className="text-2xl font-bold mt-10 mb-4 text-pergo-dark">7. Conservation des données</h2>
@@ -83,7 +83,7 @@ const Privacy = () => {
               Si vous avez des questions concernant cette politique de confidentialité, vous pouvez nous contacter :
             </p>
             <ul className="list-none mb-6 space-y-2">
-              <li>Par email : <a href="mailto:contact@pergolife.fr" className="text-pergo-secondary hover:text-pergo-dark">contact@pergolife.fr</a></li>
+              <li>Par email : <a href="mailto:contact@pergo-life.fr" className="text-pergo-secondary hover:text-pergo-dark">contact@pergo-life.fr</a></li>
               <li>Par téléphone : <a href="tel:0609538979" className="text-pergo-secondary hover:text-pergo-dark">06 09 53 89 79</a></li>
               <li>Par courrier : PergoLife, 830 Route de Bayonne - 40 230 Bénesse-Maremne</li>
             </ul>

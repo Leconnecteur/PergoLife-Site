@@ -222,7 +222,7 @@ const Contact = () => {
                     <div>
                       <p className="font-medium mb-1">Email</p>
                       <p className="text-pergo-dark/80">
-                        <a href="mailto:contact@pergolife.fr" className="hover:text-pergo-green transition-colors">contact@pergolife.fr</a>
+                        <a href="mailto:contact@pergo-life.fr" className="hover:text-pergo-green transition-colors">contact@pergo-life.fr</a>
                       </p>
                     </div>
                   </div>
@@ -263,7 +263,7 @@ const Contact = () => {
               {[
                 {
                   question: "Comment demander un devis ?",
-                  answer: "Vous pouvez demander un devis en remplissant notre formulaire de contact, en nous appelant au 06 09 53 89 79 ou en nous envoyant un email à contact@pergolife.fr. Nous vous répondrons dans les 24-48 heures ouvrées."
+                  answer: "Vous pouvez demander un devis en remplissant notre formulaire de contact, en nous appelant au 06 09 53 89 79 ou en nous envoyant un email à contact@pergo-life.fr. Nous vous répondrons dans les 24-48 heures ouvrées."
                 },
                 {
                   question: "Quels sont les délais de livraison et d'installation ?",

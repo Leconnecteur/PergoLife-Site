@@ -124,9 +124,9 @@ const Navbar = () => {
               <Phone size={14} className="mr-2" />
               <span>06 09 53 89 79</span>
             </a>
-            <a href="mailto:contact@pergolife.fr" className="flex items-center hover:text-pergo-highlight transition-colors">
+            <a href="mailto:contact@pergo-life.fr" className="flex items-center hover:text-pergo-highlight transition-colors">
               <Mail size={14} className="mr-2" />
-              <span>contact@pergolife.fr</span>
+              <span>contact@pergo-life.fr</span>
             </a>
           </div>
           <div className="flex items-center space-x-4">
@@ -364,9 +364,9 @@ const Navbar = () => {
               <Phone size={18} className="mr-3 text-pergo-secondary" />
               <span>06 09 53 89 79</span>
             </a>
-            <a href="mailto:contact@pergolife.fr" className="flex items-center text-pergo-dark hover:text-pergo-secondary transition-colors">
+            <a href="mailto:contact@pergo-life.fr" className="flex items-center text-pergo-dark hover:text-pergo-secondary transition-colors">
               <Mail size={18} className="mr-3 text-pergo-secondary" />
-              <span>contact@pergolife.fr</span>
+              <span>contact@pergo-life.fr</span>
             </a>
             <a 
               href="https://maps.google.com/?q=830+Route+de+Bayonne+-+40+230+Bénesse-Maremne" 

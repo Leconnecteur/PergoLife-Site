@@ -53,7 +53,7 @@ const Index = () => {
         description="Spécialiste en pergolas bioclimatiques, abris, portails et menuiseries dans les Landes et le Pays Basque."
         url="https://pergolife.fr"
         telephone="0609538979"
-        email="contact@pergolife.fr"
+        email="contact@pergo-life.fr"
         address={{
           streetAddress: "830 Route de Bayonne",
           addressLocality: "Bénesse-Maremne",

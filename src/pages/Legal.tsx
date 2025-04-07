@@ -28,7 +28,7 @@ const Legal = () => {
               <li><strong>Numéro de TVA intracommunautaire :</strong> FR61842170086</li>
               <li><strong>Siège social :</strong> 830 Route de Bayonne - 40 230 Bénesse-Maremne</li>
               <li><strong>Téléphone :</strong> 06 09 53 89 79</li>
-              <li><strong>Email :</strong> contact@pergolife.fr</li>
+              <li><strong>Email :</strong> contact@pergo-life.fr</li>
             </ul>
             
             <h2 className="text-2xl font-bold mt-10 mb-4 text-pergo-dark">2. Directeur de la publication</h2>
@@ -60,7 +60,7 @@ const Legal = () => {
               Le site PergoLife peut contenir des liens hypertextes vers d'autres sites internet. CKS rénovation n'exerce aucun contrôle sur ces sites et ne saurait être tenu responsable de leur contenu ou des pratiques de leurs éditeurs.
             </p>
             <p className="mb-6">
-              La création de liens hypertextes vers le site PergoLife est soumise à l'accord préalable de CKS rénovation. Pour toute demande, veuillez nous contacter à l'adresse : contact@pergolife.fr.
+              La création de liens hypertextes vers le site PergoLife est soumise à l'accord préalable de CKS rénovation. Pour toute demande, veuillez nous contacter à l'adresse : contact@pergo-life.fr.
             </p>
             
             <h2 className="text-2xl font-bold mt-10 mb-4 text-pergo-dark">6. Données personnelles</h2>

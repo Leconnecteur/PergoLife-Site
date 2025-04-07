@@ -41,7 +41,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/profile.php?id=61574408078852" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="bg-white/10 hover:bg-pergo-secondary text-white p-2 rounded-full transition-colors duration-300"
@@ -50,7 +50,7 @@ const Footer = () => {
                 <Facebook size={20} />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="#" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="bg-white/10 hover:bg-pergo-secondary text-white p-2 rounded-full transition-colors duration-300"
@@ -59,7 +59,7 @@ const Footer = () => {
                 <Instagram size={20} />
               </a>
               <a 
-                href="mailto:contact@pergolife.fr" 
+                href="mailto:contact@pergo-life.fr" 
                 className="bg-white/10 hover:bg-pergo-secondary text-white p-2 rounded-full transition-colors duration-300"
                 aria-label="Email"
               >
@@ -128,7 +128,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail size={20} className="mr-3 text-pergo-secondary shrink-0" />
-                <a href="mailto:contact@pergolife.fr" className="text-gray-300 hover:text-white transition-colors">contact@pergolife.fr</a>
+                <a href="mailto:contact@pergo-life.fr" className="text-gray-300 hover:text-white transition-colors">contact@pergo-life.fr</a>
               </li>
             </ul>
             <Link 
