@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { 
   Carousel, 
@@ -11,33 +11,71 @@ import {
   CarouselNext,
   CarouselPrevious
 } from "@/components/ui/carousel";
-import { ChevronRight, Check } from "lucide-react";
-import Testimonials from "@/components/home/Testimonials";
+import { ChevronRight, Shield, Key, Palette, Cog, Ruler, Zap } from "lucide-react";
+import PageSEO from "@/components/seo/PageSEO";
+import { motion } from "framer-motion";
+import OptimizedImage from "@/components/ui/optimized-image";
 
-const portailTypes = [
+// Images de galerie pour les portails sur-mesure
+const galleryImages = [
   { 
-    title: "Portails battants", 
-    description: "Les portails battants s'ouvrent vers l'intérieur ou l'extérieur de votre propriété, offrant une ouverture maximale.",
-    image: "swing-gate"
+    id: 1, 
+    title: "Portail contemporain en aluminium", 
+    description: "Lignes épurées et design minimaliste pour une entrée moderne",
+    image: "/images/portails/portailrecent.png"
   },
   { 
-    title: "Portails coulissants", 
-    description: "Les portails coulissants sont idéaux pour les entrées où l'espace est limité, se déplaçant parallèlement à votre clôture.",
-    image: "sliding-gate"
+    id: 2, 
+    title: "Portail classique en fer forgé", 
+    description: "Élégance intemporelle avec des détails travaillés à la main",
+    image: "/images/portails/portailferforge.png"
   },
+  { 
+    id: 3, 
+    title: "Portail coulissant motorisé", 
+    description: "Solution pratique et sécurisée pour les espaces limités",
+    image: "/images/portails/portailcoulissant.png"
+  },
+  { 
+    id: 4, 
+    title: "Portail design avec éclairage intégré", 
+    description: "Alliance parfaite entre esthétique et fonctionnalité",
+    image: "/images/portails/portailaveclumiere.png"
+  }
 ];
 
-const materials = [
-  { 
-    title: "Aluminium", 
-    benefits: ["Durable et résistant", "Sans entretien", "Nombreuses finitions disponibles", "Écologique et recyclable"],
-    image: "aluminum"
+// Avantages des portails sur-mesure
+const advantages = [
+  {
+    icon: <Ruler className="w-8 h-8 text-pergo-green" />,
+    title: "Adaptation parfaite",
+    description: "Chaque portail est conçu spécifiquement pour s'adapter aux dimensions et contraintes de votre entrée."
   },
-  { 
-    title: "PVC", 
-    benefits: ["Excellent rapport qualité-prix", "Isolation thermique", "Résistant aux intempéries", "Facile d'entretien"],
-    image: "pvc"
+  {
+    icon: <Palette className="w-8 h-8 text-pergo-green" />,
+    title: "Choix des matériaux",
+    description: "Aluminium, fer forgé, bois... Sélectionnez le matériau qui correspond à vos goûts et à votre budget."
   },
+  {
+    icon: <ChevronRight className="w-8 h-8 text-pergo-green" />,
+    title: "Type d'ouverture",
+    description: "Optez pour un portail battant ou coulissant selon la configuration de votre entrée et vos préférences."
+  },
+  {
+    icon: <Zap className="w-8 h-8 text-pergo-green" />,
+    title: "Motorisation intégrée",
+    description: "Profitez du confort d'un portail motorisé avec télécommande, digicode ou contrôle via smartphone."
+  },
+  {
+    icon: <Shield className="w-8 h-8 text-pergo-green" />,
+    title: "Sécurité renforcée",
+    description: "Protégez votre propriété avec des systèmes de verrouillage performants et des matériaux résistants."
+  },
+  {
+    icon: <Cog className="w-8 h-8 text-pergo-green" />,
+    title: "Harmonie architecturale",
+    description: "Votre portail s'intègre parfaitement au style de votre maison et valorise votre propriété."
+  }
 ];
 
 const Portails = () => {
@@ -71,195 +109,309 @@ const Portails = () => {
       }
     };
   }, []);
+
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
   
-  const renderPortailTypesGrid = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-      {portailTypes.map((type, index) => (
-        <div 
-          key={index} 
-          className="bg-white rounded-lg shadow-lg overflow-hidden hover-lift reveal-on-scroll"
-          style={{ animationDelay: `${index * 150}ms` }}
+  const renderGalleryGrid = () => (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+      {galleryImages.map((item) => (
+        <motion.div 
+          key={item.id} 
+          className="bg-white rounded-xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
+          variants={fadeIn}
         >
-          <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-            <img
-              src={`https://source.unsplash.com/random/800x500?${type.image}&sig=${index}`}
-              alt={type.title}
+          <div className="h-[420px] w-full bg-gray-100 overflow-hidden">
+            <OptimizedImage
+              src={item.image}
+              alt={item.title}
               className="w-full h-full object-cover"
-              loading="lazy"
+              objectFit="cover"
             />
           </div>
-          <div className="p-6">
-            <h3 className="text-2xl font-bold mb-3 text-pergo-dark">{type.title}</h3>
-            <p className="text-pergo-dark/70 mb-4">
-              {type.description}
-            </p>
-            <Button className="bg-pergo-secondary hover:bg-pergo-green text-white transition-colors">
-              Voir les modèles
-            </Button>
+          <div className="p-6 flex-1">
+            <h3 className="text-xl font-bold mb-2 text-pergo-dark">{item.title}</h3>
+            <p className="text-pergo-dark/70">{item.description}</p>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
   
-  const renderPortailTypesCarousel = () => (
-    <div className="mb-16 reveal-on-scroll">
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {portailTypes.map((type, index) => (
-            <CarouselItem key={index} className="pl-4 basis-full">
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-                <div className="aspect-w-16 aspect-h-9 bg-gray-200">
-                  <img
-                    src={`https://source.unsplash.com/random/800x500?${type.image}&sig=${index}`}
-                    alt={type.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-3 text-pergo-dark">{type.title}</h3>
-                  <p className="text-pergo-dark/70 mb-4">
-                    {type.description}
-                  </p>
-                  <Button className="bg-pergo-secondary hover:bg-pergo-green text-white transition-colors">
-                    Voir les modèles
-                  </Button>
-                </div>
+  const renderGalleryCarousel = () => (
+    <Carousel
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      className="w-full mb-16"
+    >
+      <CarouselContent>
+        {galleryImages.map((item) => (
+          <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/2">
+            <motion.div 
+              className="bg-white rounded-xl shadow-xl overflow-hidden h-full flex flex-col"
+              variants={fadeIn}
+            >
+              <div className="h-[420px] w-full bg-gray-100 overflow-hidden">
+                <OptimizedImage
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover"
+                  objectFit="cover"
+                />
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="flex justify-center mt-6">
-          <CarouselPrevious className="relative mr-2 translate-y-0 bg-pergo-secondary hover:bg-pergo-green text-white" />
-          <CarouselNext className="relative ml-2 translate-y-0 bg-pergo-secondary hover:bg-pergo-green text-white" />
-        </div>
-      </Carousel>
-    </div>
-  );
-  
-  const renderMaterialsGrid = () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-      {materials.map((material, index) => (
-        <div 
-          key={index} 
-          className="bg-white rounded-lg shadow-md p-6 hover-lift reveal-on-scroll"
-          style={{ animationDelay: `${index * 150}ms` }}
-        >
-          <h3 className="text-xl font-bold mb-4 text-pergo-dark">{material.title}</h3>
-          <ul className="mb-6 space-y-2">
-            {material.benefits.map((benefit, i) => (
-              <li key={i} className="flex items-start">
-                <Check className="text-pergo-green mr-2 h-5 w-5 flex-shrink-0" />
-                <span className="text-pergo-dark/80">{benefit}</span>
-              </li>
-            ))}
-          </ul>
-          <Button variant="outline" className="text-pergo-green hover:text-white hover:bg-pergo-green border-pergo-green">
-            En savoir plus <ChevronRight className="ml-1 h-4 w-4" />
-          </Button>
-        </div>
-      ))}
-    </div>
-  );
-  
-  const renderMaterialsCarousel = () => (
-    <div className="mb-16 reveal-on-scroll">
-      <Carousel
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {materials.map((material, index) => (
-            <CarouselItem key={index} className="pl-4 basis-full">
-              <div className="bg-white rounded-lg shadow-md p-6 h-full">
-                <h3 className="text-xl font-bold mb-4 text-pergo-dark">{material.title}</h3>
-                <ul className="mb-6 space-y-2">
-                  {material.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-start">
-                      <Check className="text-pergo-green mr-2 h-5 w-5 flex-shrink-0" />
-                      <span className="text-pergo-dark/80">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="outline" className="text-pergo-green hover:text-white hover:bg-pergo-green border-pergo-green">
-                  En savoir plus <ChevronRight className="ml-1 h-4 w-4" />
-                </Button>
+              <div className="p-6 flex-1">
+                <h3 className="text-xl font-bold mb-2 text-pergo-dark">{item.title}</h3>
+                <p className="text-pergo-dark/70">{item.description}</p>
               </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="flex justify-center mt-6">
-          <CarouselPrevious className="relative mr-2 translate-y-0 bg-pergo-secondary hover:bg-pergo-green text-white" />
-          <CarouselNext className="relative ml-2 translate-y-0 bg-pergo-secondary hover:bg-pergo-green text-white" />
-        </div>
-      </Carousel>
-    </div>
+            </motion.div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="flex justify-center mt-4">
+        <CarouselPrevious className="static transform-none mx-2" />
+        <CarouselNext className="static transform-none mx-2" />
+      </div>
+    </Carousel>
   );
 
   return (
     <div className="min-h-screen">
+      <PageSEO 
+        title="Portails Sur-Mesure | PergoLife"
+        description="Créez le portail de vos rêves avec notre expertise en conception et installation de portails sur-mesure pour sécuriser et embellir votre propriété."
+        keywords="portail sur-mesure, portail aluminium, portail fer forgé, portail coulissant, portail battant, portail motorisé, portail design"
+        canonicalPath="/products/portails"
+      />
       <Navbar />
       <main className="pt-32 pb-12" ref={sectionRef}>
-        <div className="container mx-auto px-6">
-          <h1 className="text-4xl font-bold mb-8 text-pergo-dark reveal-on-scroll">Nos Portails</h1>
-          
-          <div className="prose max-w-none mb-12 reveal-on-scroll">
-            <p className="text-xl text-pergo-dark/80 mb-6">
-              Des portails élégants et sécurisés pour sublimer l'entrée de votre propriété tout en garantissant votre intimité.
-            </p>
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={fadeIn}
+          className="container mx-auto px-6"
+        >
+          {/* Hero Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-pergo-dark">
+                <span className="text-pergo-green">Sécurisez</span> et <span className="text-pergo-green">sublimez</span> l'entrée de votre propriété
+              </h1>
+              <p className="text-xl text-pergo-dark/80 mb-8">
+                Des portails sur-mesure alliant esthétique, sécurité et durabilité pour valoriser votre habitat et refléter votre personnalité.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button 
+                  onClick={() => {
+                    const projectSection = document.getElementById('contact-section');
+                    if (projectSection) {
+                      const yOffset = -80;
+                      const y = projectSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                      window.scrollTo({top: y, behavior: 'smooth'});
+                    }
+                  }}
+                  variant="default" 
+                  size="lg"
+                  className="relative overflow-hidden group"
+                >
+                  <span className="relative z-10">Imaginez votre portail idéal</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-pergo-green/80 via-pergo-green to-pergo-green/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></span>
+                </Button>
+                <Link to="/contact">
+                  <Button 
+                    variant="outline" 
+                    size="lg"
+                    className="relative overflow-hidden group"
+                  >
+                    <span className="relative z-10">Demander un devis</span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-pergo-green/30 via-pergo-green/50 to-pergo-green/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></span>
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="rounded-lg overflow-hidden shadow-2xl h-[300px] bg-gray-100">
+                <div className="relative w-full h-full">
+                  <OptimizedImage
+                    src="/images/portails/installationportail.png"
+                    alt="Portail sur-mesure - PergoLife"
+                    className="w-full h-full object-cover object-center"
+                    objectFit="cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-pergo-dark/30 to-transparent pointer-events-none"></div>
+                </div>
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-pergo-green text-white p-4 rounded-lg shadow-lg">
+                <p className="font-bold">Élégance & Sécurité</p>
+                <p className="text-sm">Fabrication française</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Introduction */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="mb-20"
+          >
+            <div className="max-w-3xl mx-auto text-center">
+              <p className="text-lg text-pergo-dark/80 mb-6">
+                Notre expertise dans la création de portails sur-mesure nous permet de répondre à toutes vos exigences, quels que soient le style architectural de votre maison, les contraintes techniques de votre entrée ou vos préférences esthétiques.
+              </p>
+              <p className="text-lg text-pergo-dark/80">
+                Chaque projet est unique et bénéficie d'un accompagnement personnalisé, de la conception à l'installation, pour vous garantir un portail parfaitement adapté à vos besoins et à votre environnement.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Section Pourquoi un portail sur-mesure */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="mb-20"
+          >
+            <h2 className="text-3xl font-bold mb-8 text-pergo-dark text-center">
+              Pourquoi un <span className="text-pergo-green">portail sur-mesure</span> ?
+            </h2>
             
-            <p className="mb-8 text-pergo-dark/80">
-              Nous proposons une large gamme de portails sur mesure, en aluminium ou en PVC, disponibles dans différents styles et coloris pour s'adapter parfaitement à votre habitat.
-            </p>
-          </div>
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {advantages.map((advantage, index) => (
+                <motion.div 
+                  key={index}
+                  variants={fadeIn}
+                  className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 hover:-translate-y-1"
+                >
+                  <div className="w-16 h-16 bg-pergo-green/10 rounded-full flex items-center justify-center mb-4">
+                    {advantage.icon}
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-pergo-dark">{advantage.title}</h3>
+                  <p className="text-pergo-dark/70">{advantage.description}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Section Style et sécurité à votre image */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="mb-20"
+          >
+            <h2 className="text-3xl font-bold mb-8 text-pergo-dark text-center">
+              Style et <span className="text-pergo-green">sécurité</span> à votre image
+            </h2>
+            
+            <div className="bg-white rounded-xl shadow-xl p-8 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-pergo-green/10 to-transparent"></div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <p className="text-lg mb-6 text-pergo-dark/80">
+                    Votre portail est bien plus qu'une simple entrée : c'est la <strong className="text-pergo-green">première impression</strong> que vous donnez de votre propriété. 
+                    Nous vous proposons une personnalisation complète pour créer un portail qui vous ressemble.
+                  </p>
+                  
+                  <p className="text-lg mb-6 text-pergo-dark/80">
+                    Du choix des <strong className="text-pergo-green">matériaux</strong> (aluminium, fer forgé, bois...) aux <strong className="text-pergo-green">finitions</strong> (couleurs, textures, motifs), 
+                    en passant par les <strong className="text-pergo-green">systèmes de sécurité</strong> (domotique, interphone, vidéosurveillance), 
+                    nous vous accompagnons dans la création d'un portail alliant esthétique et fonctionnalité.
+                  </p>
+                  
+                  <p className="text-lg text-pergo-dark/80">
+                    Nos solutions d'<strong className="text-pergo-green">éclairage intégré</strong> subliment votre entrée et renforcent la sécurité de votre propriété, 
+                    tandis que nos systèmes de <strong className="text-pergo-green">motorisation</strong> vous offrent un confort d'utilisation optimal au quotidien.
+                  </p>
+                </div>
+                
+                <div className="relative">
+                  <div className="rounded-lg overflow-hidden shadow-lg">
+                    <OptimizedImage
+                      src="/images/portails/style-securite.jpg"
+                      alt="Style et sécurité des portails sur-mesure - PergoLife"
+                      className="w-full h-auto"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -left-4 bg-white p-4 rounded-lg shadow-lg">
+                    <p className="font-bold text-pergo-green">Design personnalisé</p>
+                    <p className="text-sm text-pergo-dark/70">Selon vos goûts</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Galerie d'inspiration */}
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="mb-20"
+          >
+            <h2 className="text-3xl font-bold mb-8 text-pergo-dark text-center">
+              Galerie <span className="text-pergo-green">d'inspiration</span>
+            </h2>
+            
+            {isMobile ? renderGalleryCarousel() : renderGalleryGrid()}
+          </motion.div>
           
-          {/* Types de portails */}
-          <h2 className="text-3xl font-bold mb-8 text-pergo-dark reveal-on-scroll">Types de portails</h2>
-          {isMobile ? renderPortailTypesCarousel() : renderPortailTypesGrid()}
-          
-          {/* Matériaux */}
-          <h2 className="text-3xl font-bold mb-8 text-pergo-dark reveal-on-scroll">Nos matériaux</h2>
-          {isMobile ? renderMaterialsCarousel() : renderMaterialsGrid()}
-          
-          {/* Automatisation */}
-          <div className="bg-gradient-to-r from-pergo-green/20 to-pergo-green/5 rounded-lg p-8 mb-16 reveal-on-scroll">
-            <h2 className="text-2xl font-bold mb-4 text-pergo-dark">Automatisez votre portail</h2>
-            <p className="mb-6 text-lg text-pergo-dark/80">
-              Nous proposons des solutions d'automatisation complètes pour votre confort quotidien : télécommandes, digicode, commande smartphone, etc.
-            </p>
-            <Button className="bg-pergo-secondary hover:bg-pergo-green text-white">
-              Options d'automatisation <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-          
-          {/* Témoignages */}
-          <div className="mb-16">
-            <Testimonials />
-          </div>
-          
-          {/* Appel à l'action */}
-          <div className="bg-pergo-green/10 rounded-lg p-8 text-center reveal-on-scroll">
-            <h2 className="text-2xl font-bold mb-4 text-pergo-dark">Envie d'un portail personnalisé ?</h2>
-            <p className="mb-6 text-lg text-pergo-dark/80">
-              Nos experts sont disponibles pour vous aider à choisir le portail idéal pour votre propriété.
-            </p>
-            <Link to="/contact">
-              <Button className="bg-pergo-secondary hover:bg-pergo-green text-white inline-flex items-center">
-                Demander un devis <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
+          {/* CTA section */}
+          <motion.div 
+            id="contact-section"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeIn}
+          >
+            <div className="bg-gradient-to-r from-pergo-green/20 via-pergo-green/30 to-pergo-green/20 rounded-xl p-8 md:p-12 text-center">
+              <h2 className="text-3xl font-bold mb-4 text-pergo-dark">Imaginez votre portail idéal</h2>
+              <p className="mb-8 text-xl text-pergo-dark/80 max-w-2xl mx-auto">
+                Vous avez un projet de portail sur-mesure ? Contactez-nous pour discuter de vos idées et obtenir un devis personnalisé. 
+                Nos experts vous accompagnent de la conception à l'installation.
+              </p>
+              <Link to="/contact">
+                <Button 
+                  variant="default" 
+                  size="lg"
+                  className="relative overflow-hidden group"
+                >
+                  <span className="relative z-10">Demander un devis gratuit</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-pergo-green/80 via-pergo-green to-pergo-green/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></span>
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+        </motion.div>
       </main>
       <Footer />
     </div>
