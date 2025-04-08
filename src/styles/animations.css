@@ -1,0 +1,88 @@
+/**
+ * Animations CSS pour le site PergoLife
+ * Inclut des effets de révélation et des animations pour les boutons
+ */
+
+/* Animation de révélation pour les éléments au scroll */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animation de lueur (glow) pour les boutons */
+@keyframes buttonGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 150, 136, 0.3), 0 0 10px rgba(0, 150, 136, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(0, 150, 136, 0.5), 0 0 20px rgba(0, 150, 136, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 150, 136, 0.3), 0 0 10px rgba(0, 150, 136, 0.2);
+  }
+}
+
+/* Animation de dégradé pour les boutons */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Effet de lueur au survol des boutons */
+.btn-glow:hover, 
+button.bg-pergo-secondary:hover,
+a.bg-pergo-secondary:hover {
+  animation: buttonGlow 2s infinite;
+}
+
+/* Effet de dégradé animé au survol */
+.btn-gradient:hover, 
+.gradient-hover:hover {
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+/* Animation de lift au survol */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Animation pour les cartes de projet */
+.project-card {
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.02);
+}
+
+/* Animation pour les images */
+.image-zoom {
+  overflow: hidden;
+}
+
+.image-zoom img {
+  transition: transform 0.7s ease;
+}
+
+.image-zoom:hover img {
+  transform: scale(1.05);
+}

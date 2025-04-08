@@ -1,11 +1,11 @@
 /**
- * Service pour gérer les envois de formulaires via Formspree
- * Une alternative simple à EmailJS qui ne nécessite pas de configuration SMTP complexe
+ * Service pour gérer les envois d'emails de confirmation aux clients via Formspree
+ * Une solution simple qui utilise un seul formulaire Formspree pour toutes les confirmations
  */
 
-// Remplacez ces valeurs par vos propres identifiants Formspree
-const FORMSPREE_CONTACT_URL = 'https://formspree.io/f/VOTRE_ID_FORMSPREE_CONTACT';
-const FORMSPREE_NEWSLETTER_URL = 'https://formspree.io/f/VOTRE_ID_FORMSPREE_NEWSLETTER';
+// Identifiant Formspree pour le formulaire de confirmation
+// Ce formulaire est utilisé pour envoyer toutes les confirmations aux clients
+const FORMSPREE_URL = 'https://formspree.io/f/mqapgvew';
 
 // Messages de succès et d'erreur
 const MESSAGES = {
@@ -16,83 +16,108 @@ const MESSAGES = {
 };
 
 /**
- * Envoie un formulaire de contact via Formspree
+ * Envoie un email de confirmation au client après soumission d'un formulaire de contact
  * @param formData Les données du formulaire de contact
  * @returns Promise avec le résultat de l'envoi
  */
-export const sendContactForm = async (formData: {
+export const sendContactConfirmation = async (formData: {
   name: string;
   email: string;
-  phone?: string;
   subject: string;
-  message: string;
 }) => {
   try {
-    const response = await fetch(FORMSPREE_CONTACT_URL, {
+    // Création d'un message de confirmation personnalisé
+    const confirmationMessage = `
+Bonjour ${formData.name},
+
+Nous avons bien reçu votre demande concernant "${formData.subject}".
+
+Notre équipe va l'étudier dans les plus brefs délais et reviendra vers vous rapidement.
+
+Cordialement,
+L'équipe PergoLife
+contact@pergo-life.fr
+Tél: 06 09 53 89 79
+`;
+    
+    // Envoi via Formspree
+    const response = await fetch(FORMSPREE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        name: formData.name,
+        // Ces champs seront visibles dans le tableau de bord Formspree
+        _subject: `Confirmation de votre demande : ${formData.subject}`,
         email: formData.email,
-        phone: formData.phone || 'Non renseigné',
-        subject: formData.subject,
-        message: formData.message,
-        date: new Date().toLocaleString('fr-FR')
+        name: formData.name,
+        message: confirmationMessage,
+        
+        // Ces champs sont spécifiques à Formspree
+        _replyto: 'contact@pergo-life.fr',
+        _cc: '', // Laissez vide ou ajoutez des emails en copie si nécessaire
       })
     });
 
     if (!response.ok) {
-      throw new Error('Erreur lors de l\'envoi du formulaire');
+      console.warn('Erreur lors de l\'envoi de la confirmation au client, mais le formulaire a bien été envoyé');
+      return { success: false };
     }
 
-    return {
-      success: true,
-      message: MESSAGES.contactSuccessMessage
-    };
+    return { success: true };
   } catch (error) {
-    console.error('Erreur lors de l\'envoi du formulaire de contact:', error);
-    return {
-      success: false,
-      message: MESSAGES.contactErrorMessage,
-      error
-    };
+    console.warn('Erreur lors de l\'envoi de la confirmation au client, mais le formulaire a bien été envoyé:', error);
+    return { success: false };
   }
 };
 
 /**
- * Envoie une inscription à la newsletter via Formspree
+ * Envoie un email de confirmation pour l'inscription à la newsletter
  * @param email L'email de la personne qui s'inscrit à la newsletter
  * @returns Promise avec le résultat de l'envoi
  */
-export const subscribeToNewsletter = async (email: string) => {
+export const sendNewsletterConfirmation = async (email: string) => {
   try {
-    const response = await fetch(FORMSPREE_NEWSLETTER_URL, {
+    // Création d'un message de confirmation personnalisé
+    const confirmationMessage = `
+Bonjour,
+
+Nous vous confirmons votre inscription à la newsletter PergoLife.
+
+Vous recevrez désormais nos actualités et offres exclusives directement dans votre boîte mail.
+
+Cordialement,
+L'équipe PergoLife
+contact@pergo-life.fr
+Tél: 06 09 53 89 79
+`;
+    
+    // Envoi via Formspree
+    const response = await fetch(FORMSPREE_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email,
-        date: new Date().toLocaleString('fr-FR')
+        // Ces champs seront visibles dans le tableau de bord Formspree
+        _subject: 'Confirmation d\'inscription à la newsletter PergoLife',
+        email: email,
+        message: confirmationMessage,
+        
+        // Ces champs sont spécifiques à Formspree
+        _replyto: 'contact@pergo-life.fr',
+        _cc: '', // Laissez vide ou ajoutez des emails en copie si nécessaire
       })
     });
 
     if (!response.ok) {
-      throw new Error('Erreur lors de l\'inscription à la newsletter');
+      console.warn('Erreur lors de l\'envoi de la confirmation newsletter, mais l\'inscription a bien été enregistrée');
+      return { success: false };
     }
 
-    return {
-      success: true,
-      message: MESSAGES.newsletterSuccessMessage
-    };
+    return { success: true };
   } catch (error) {
-    console.error('Erreur lors de l\'inscription à la newsletter:', error);
-    return {
-      success: false,
-      message: MESSAGES.newsletterErrorMessage,
-      error
-    };
+    console.warn('Erreur lors de l\'envoi de la confirmation newsletter, mais l\'inscription a bien été enregistrée:', error);
+    return { success: false };
   }
 };

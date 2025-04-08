@@ -1,0 +1,46 @@
+/* Styles spécifiques pour le formulaire de newsletter dans le footer */
+.footer-newsletter input {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.footer-newsletter input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Effet de lueur sur les boutons, conformément aux préférences du client */
+.footer-newsletter button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.footer-newsletter button:hover {
+  box-shadow: 0 0 15px rgba(var(--pergo-secondary-rgb), 0.7);
+}
+
+.footer-newsletter button:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, 
+    rgba(var(--pergo-secondary-rgb), 0.5), 
+    rgba(var(--pergo-green-rgb), 0.5), 
+    rgba(var(--pergo-highlight-rgb), 0.5));
+  filter: blur(10px);
+  z-index: -1;
+  animation: glowAnimation 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glowAnimation {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}

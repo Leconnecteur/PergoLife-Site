@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Send, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { subscribeToNewsletter } from '@/services/email-service';
 
@@ -18,7 +18,6 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,12 +35,13 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       const result = await subscribeToNewsletter(email);
       
       if (result.success) {
-        setSuccess(true);
+        // Nous utilisons uniquement la notification toast et non le message dans le composant
         toast({
           title: 'Inscription réussie',
           description: 'Merci de vous être inscrit à notre newsletter !',
         });
         setEmail('');
+        // Réinitialiser le formulaire au lieu d'afficher un message de succès
       } else {
         setError(result.message);
         toast({
@@ -68,55 +68,43 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({
       <h3 className="text-xl font-bold mb-2 text-pergo-dark">{title}</h3>
       <p className="text-pergo-dark/80 mb-4">{description}</p>
       
-      {success ? (
-        <div className="p-4 bg-green-50 border-l-4 border-green-500 text-green-700 flex items-start">
-          <CheckCircle2 size={20} className="mr-2 shrink-0 mt-0.5" />
-          <div>
-            <p className="font-medium">Inscription réussie !</p>
-            <p>Merci de vous être inscrit à notre newsletter.</p>
-          </div>
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700 flex items-start">
+          <AlertCircle size={18} className="mr-2 shrink-0 mt-0.5" />
+          <p>{error}</p>
         </div>
-      ) : (
-        <>
-          {error && (
-            <div className="mb-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700 flex items-start">
-              <AlertCircle size={18} className="mr-2 shrink-0 mt-0.5" />
-              <p>{error}</p>
-            </div>
-          )}
-          
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (error) setError('');
-              }}
-              placeholder="Votre adresse email"
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pergo-green"
-              required
-            />
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="bg-pergo-secondary hover:bg-pergo-green text-white px-4 py-2 rounded-md font-medium transition-colors shadow-sm flex items-center justify-center"
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="animate-spin mr-2">⟳</span>
-                  Envoi...
-                </>
-              ) : (
-                <>
-                  <Send size={18} className="mr-2" />
-                  S'inscrire
-                </>
-              )}
-            </button>
-          </form>
-        </>
       )}
+          
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (error) setError('');
+          }}
+          placeholder="Votre adresse email"
+          className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pergo-green text-pergo-dark dark:text-white bg-white dark:bg-pergo-dark/50"
+          required
+        />
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-pergo-secondary hover:bg-pergo-green text-white px-4 py-2 rounded-md font-medium transition-colors shadow-sm flex items-center justify-center"
+        >
+          {isSubmitting ? (
+            <>
+              <span className="animate-spin mr-2">⟳</span>
+              Envoi...
+            </>
+          ) : (
+            <>
+              <Send size={18} className="mr-2" />
+              S'inscrire
+            </>
+          )}
+        </button>
+      </form>
     </div>
   );
 };

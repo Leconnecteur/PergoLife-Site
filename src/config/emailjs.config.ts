@@ -19,9 +19,7 @@ export const emailJSConfig = {
   publicKey: '_dRSb5UY0lDrrKNrW', // Clé publique EmailJS
   
   // Paramètres des emails
-  // Utilisez votre adresse Gmail déjà vérifiée pour les tests
-  // Vous pourrez revenir à l'adresse professionnelle une fois vérifiée
-  siteOwnerEmail: 'votre.adresse@gmail.com', // Remplacez par votre adresse Gmail
+  siteOwnerEmail: 'contact@pergo-life.fr', // Adresse email du destinataire (propriétaire du site)
   siteName: 'PergoLife',
   siteUrl: 'https://pergo-life.fr',
   

@@ -22,7 +22,7 @@ const Footer = () => {
             <NewsletterSignup 
               title="" 
               description="" 
-              className="bg-transparent p-0" 
+              className="bg-transparent p-0 footer-newsletter" 
             />
           </div>
         </div>
@@ -50,7 +50,7 @@ const Footer = () => {
                 <Facebook size={20} />
               </a>
               <a 
-                href="#" 
+                href="https://www.instagram.com/pergolife40/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="bg-white/10 hover:bg-pergo-secondary text-white p-2 rounded-full transition-colors duration-300"

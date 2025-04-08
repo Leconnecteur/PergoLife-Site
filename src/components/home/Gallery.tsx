@@ -11,48 +11,90 @@ import {
   CarouselPrevious
 } from "@/components/ui/carousel";
 
-const projects = [
+// Définition du type pour les projets
+type Project = {
+  id: number;
+  title: string;
+  category: string;
+  location: string;
+  imageUrl: string;
+  description: string;
+  gallery?: string[];
+  features?: string[];
+};
+
+// Utilisation des mêmes données que la page Réalisations
+const projects: Project[] = [
   {
     id: 1,
-    title: "Pergola bioclimatique",
+    title: "Pergola bioclimatique moderne",
     category: "Pergolas",
-    location: "Lyon, France",
-    image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+    location: "Paris",
+    imageUrl: "/images/realisations/pergola1.jpg",
+    description: "Installation d'une pergola bioclimatique avec lames orientables sur une terrasse parisienne.",
+    gallery: [
+      "/images/realisations/pergola1.jpg"
+    ],
+    features: [
+      "Lames orientables et motorisées",
+      "Capteurs de pluie et de vent",
+      "Éclairage LED intégré"
+    ]
   },
   {
     id: 2,
-    title: "Abri de jardin en bois",
+    title: "Pergola design contemporain",
+    category: "Pergolas",
+    location: "Montpellier",
+    imageUrl: "/images/realisations/pergola2.jpg",
+    description: "Installation d'une pergola au design contemporain avec éclairage intégré et finition moderne.",
+    gallery: [
+      "/images/realisations/pergola2.jpg"
+    ]
+  },
+  {
+    id: 7,
+    title: "Portail et clôture assortis",
+    category: "Portails",
+    location: "Lille",
+    imageUrl: "/images/realisations/portail2.jpg",
+    description: "Création et pose d'un ensemble portail battant et clôture en aluminium, avec système d'ouverture à code.",
+    gallery: [
+      "/images/realisations/portail2.jpg"
+    ]
+  },
+  {
+    id: 9,
+    title: "Menuiserie intérieure sur mesure",
+    category: "Menuiseries",
+    location: "Strasbourg",
+    imageUrl: "/images/realisations/menuiserie1.jpg",
+    description: "Conception et installation de menuiseries intérieures sur mesure, alliant esthétique et fonctionnalité.",
+    gallery: [
+      "/images/realisations/menuiserie1.jpg"
+    ]
+  },
+  {
+    id: 12,
+    title: "Carport avec panneaux solaires",
     category: "Abris",
-    location: "Nice, France",
-    image: "https://images.unsplash.com/photo-1529290130-4ca3753253ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80"
+    location: "Annecy",
+    imageUrl: "/images/realisations/carport.jpg",
+    description: "Installation d'un carport double en aluminium avec intégration de panneaux solaires sur le toit.",
+    gallery: [
+      "/images/realisations/carport.jpg"
+    ]
   },
   {
     id: 3,
-    title: "Portail moderne",
-    category: "Portails",
-    location: "Paris, France",
-    image: "https://images.unsplash.com/photo-1599809275671-b5942cabc7a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 4,
-    title: "Fenêtres panoramiques",
-    category: "Menuiseries",
-    location: "Bordeaux, France",
-    image: "https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 5,
-    title: "Terrasse couverte",
+    title: "Pergola bioclimatique extérieure",
     category: "Pergolas",
-    location: "Marseille, France",
-    image: "https://images.unsplash.com/photo-1600607687644-c7f34bc90283?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 6,
-    title: "Carport aluminium",
-    category: "Abris",
-    location: "Toulouse, France",
-    image: "https://images.unsplash.com/photo-1578986303627-e8699326e027?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1015&q=80"
+    location: "Lyon",
+    imageUrl: "/images/realisations/pergola3.jpg",
+    description: "Réalisation d'une pergola bioclimatique pour un espace extérieur, offrant une protection optimale contre les intempéries.",
+    gallery: [
+      "/images/realisations/pergola3.jpg"
+    ]
   }
 ];
 
@@ -115,14 +157,13 @@ const Gallery = () => {
               <div className="group bg-white rounded-xl overflow-hidden shadow-card hover-lift h-full">
                 <div className="relative h-64 overflow-hidden">
                   <img
-                    src={project.image}
+                    src={project.imageUrl}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div className="text-white">
                       <p className="text-sm font-medium">{project.category}</p>
-                      <p className="text-xs opacity-80">{project.location}</p>
                     </div>
                   </div>
                 </div>
@@ -143,8 +184,8 @@ const Gallery = () => {
           ))}
         </CarouselContent>
         <div className="flex justify-center mt-4">
-          <CarouselPrevious className="relative static mx-1 translate-y-0 left-0" />
-          <CarouselNext className="relative static mx-1 translate-y-0 right-0" />
+          <CarouselPrevious className="relative static mx-1 translate-y-0 left-0 bg-pergo-secondary hover:bg-pergo-green text-white" />
+          <CarouselNext className="relative static mx-1 translate-y-0 right-0 bg-pergo-secondary hover:bg-pergo-green text-white" />
         </div>
       </Carousel>
     </div>
@@ -159,14 +200,13 @@ const Gallery = () => {
         >
           <div className="relative h-64 overflow-hidden">
             <img
-              src={project.image}
+              src={project.imageUrl}
               alt={project.title}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
               <div className="text-white">
                 <p className="text-sm font-medium">{project.category}</p>
-                <p className="text-xs opacity-80">{project.location}</p>
               </div>
             </div>
           </div>
@@ -227,11 +267,15 @@ const Gallery = () => {
               "inline-flex items-center justify-center",
               "bg-pergo-secondary hover:bg-pergo-green text-white",
               "px-8 py-3 rounded-lg transition-all duration-300",
-              "hover:shadow-lg hover:translate-y-[-2px]"
+              "hover:shadow-lg hover:translate-y-[-2px]",
+              "relative overflow-hidden group"
             )}
           >
-            Voir toutes nos réalisations
-            <ArrowRight size={16} className="ml-2" />
+            <span className="relative z-10 flex items-center">
+              Voir toutes nos réalisations
+              <ArrowRight size={16} className="ml-2" />
+            </span>
+            <span className="absolute inset-0 bg-gradient-to-r from-pergo-green/30 via-pergo-green/50 to-pergo-green/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></span>
           </Link>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import emailjs from '@emailjs/browser';
 import { emailJSConfig } from '@/config/emailjs.config';
+import { sendContactConfirmation, sendNewsletterConfirmation } from './formspree-service';
 
 // Constantes pour EmailJS depuis la configuration
 const SERVICE_ID = emailJSConfig.serviceId;
@@ -44,28 +45,16 @@ export const sendContactForm = async (formData: {
       PUBLIC_KEY
     );
     
-    // 2. Envoi d'un email de confirmation au client (optionnel)
-    // Nous essayons d'envoyer l'email de confirmation, mais nous continuons même en cas d'erreur
+    // 2. Envoi d'un email de confirmation au client via Formspree
+    // Cette méthode est plus fiable pour les emails de confirmation aux clients
     try {
-      await emailjs.send(
-        SERVICE_ID,
-        CONFIRMATION_TEMPLATE_ID,
-        {
-          to_name: formData.name,
-          to_email: formData.email,
-          subject: `Confirmation de votre demande : ${formData.subject}`,
-          original_subject: formData.subject,
-          date: new Date().toLocaleString('fr-FR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          })
-        },
-        PUBLIC_KEY
-      );
-      console.log('Email de confirmation envoyé avec succès');
+      // Utilisation de Formspree pour envoyer la confirmation au client
+      await sendContactConfirmation({
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject
+      });
+      console.log('Email de confirmation envoyé avec succès via Formspree');
     } catch (confirmationError) {
       // Nous ignorons cette erreur car l'email principal a été envoyé avec succès
       console.log('Erreur lors de l\'envoi de l\'email de confirmation, mais l\'email principal a été envoyé');
@@ -117,28 +106,12 @@ export const subscribeToNewsletter = async (email: string) => {
       PUBLIC_KEY
     );
     
-    // 2. Email de confirmation à l'abonné (optionnel)
-    // Nous essayons d'envoyer l'email de confirmation, mais nous continuons même en cas d'erreur
+    // 2. Email de confirmation à l'abonné via Formspree
+    // Cette méthode est plus fiable pour les emails de confirmation aux clients
     try {
-      await emailjs.send(
-        SERVICE_ID,
-        CONFIRMATION_TEMPLATE_ID,
-        {
-          to_name: 'Nouvel abonné',
-          to_email: email,
-          subject: 'Confirmation d\'inscription à la newsletter PergoLife',
-          message: 'Merci de vous être inscrit à notre newsletter. Vous recevrez désormais nos actualités et offres exclusives directement dans votre boîte mail.',
-          date: new Date().toLocaleString('fr-FR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-          })
-        },
-        PUBLIC_KEY
-      );
-      console.log('Email de confirmation newsletter envoyé avec succès');
+      // Utilisation de Formspree pour envoyer la confirmation au client
+      await sendNewsletterConfirmation(email);
+      console.log('Email de confirmation newsletter envoyé avec succès via Formspree');
     } catch (confirmationError) {
       // Nous ignorons cette erreur car l'email principal a été envoyé avec succès
       console.log('Erreur lors de l\'envoi de l\'email de confirmation newsletter, mais la notification a été envoyée');
