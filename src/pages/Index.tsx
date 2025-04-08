@@ -7,6 +7,7 @@ import About from "@/components/home/About";
 import Gallery from "@/components/home/Gallery";
 import Contact from "@/components/home/Contact";
 import Testimonials from "@/components/home/Testimonials";
+import LifeSpa from "@/components/home/LifeSpa";
 import PageSEO from "@/components/seo/PageSEO";
 import { LocalBusinessData } from "@/components/seo/StructuredData";
 
@@ -76,6 +77,7 @@ const Index = () => {
         <About />
         <Gallery />
         <Testimonials />
+        <LifeSpa />
         <Contact />
       </main>
       <Footer />
