@@ -21,6 +21,7 @@ export const sendContactForm = async (formData: {
 }) => {
   try {
     // 1. Envoi de l'email au propriétaire du site
+    // Utilisation du template avec l'adresse email par défaut du compte EmailJS
     const response = await emailjs.send(
       SERVICE_ID,
       CONTACT_TEMPLATE_ID,
@@ -43,6 +44,7 @@ export const sendContactForm = async (formData: {
     );
     
     // 2. Envoi d'un email de confirmation au client
+    // Utilisation du template avec l'adresse email par défaut du compte EmailJS
     await emailjs.send(
       SERVICE_ID,
       CONFIRMATION_TEMPLATE_ID,
@@ -85,6 +87,7 @@ export const sendContactForm = async (formData: {
 export const subscribeToNewsletter = async (email: string) => {
   try {
     // 1. Notification au propriétaire du site d'une nouvelle inscription via le template de confirmation
+    // Utilisation du template avec l'adresse email par défaut du compte EmailJS
     const response = await emailjs.send(
       SERVICE_ID,
       CONTACT_TEMPLATE_ID,
@@ -107,10 +110,12 @@ export const subscribeToNewsletter = async (email: string) => {
     );
     
     // 2. Email de confirmation à l'abonné
+    // Utilisation du template avec l'adresse email par défaut du compte EmailJS
     await emailjs.send(
       SERVICE_ID,
       CONFIRMATION_TEMPLATE_ID,
       {
+        to_name: 'Nouvel abonné',
         to_email: email,
         subject: 'Confirmation d\'inscription à la newsletter PergoLife',
         message: 'Merci de vous être inscrit à notre newsletter. Vous recevrez désormais nos actualités et offres exclusives directement dans votre boîte mail.',

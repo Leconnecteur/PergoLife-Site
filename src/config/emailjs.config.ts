@@ -12,13 +12,16 @@
 
 export const emailJSConfig = {
   // Identifiants EmailJS
-  serviceId: 'service_pergolife',
-  contactTemplateId: 'template_contact_pergolife',
-  confirmationTemplateId: 'template_confirmation_pergolife',
-  publicKey: 'VOTRE_CLE_PUBLIQUE_ICI', // Remplacez par la clé que vous avez copiée
+  // Utilisation du service SMTP existant
+  serviceId: 'service_r8tb6kq', // ID du service SMTP
+  contactTemplateId: 'template_xs0h73g', // ID du template de contact
+  confirmationTemplateId: 'template_zjbesc6', // ID du template de confirmation (Auto-Reply)
+  publicKey: '_dRSb5UY0lDrrKNrW', // Clé publique EmailJS
   
   // Paramètres des emails
-  siteOwnerEmail: 'contact@pergo-life.fr',
+  // Utilisez votre adresse Gmail déjà vérifiée pour les tests
+  // Vous pourrez revenir à l'adresse professionnelle une fois vérifiée
+  siteOwnerEmail: 'votre.adresse@gmail.com', // Remplacez par votre adresse Gmail
   siteName: 'PergoLife',
   siteUrl: 'https://pergo-life.fr',
   
