@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Confirmation PergoLife</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .logo {
+      max-width: 150px;
+      height: auto;
+    }
+    .content {
+      padding: 20px 0;
+    }
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 12px;
+      color: #888;
+      border-top: 1px solid #eee;
+    }
+    h1 {
+      color: #1A5D1A;
+      margin-top: 0;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #1A5D1A 0%, #4CAF50 100%);
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      margin: 20px 0;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .button:hover {
+      background: linear-gradient(90deg, #4CAF50 0%, #1A5D1A 100%);
+      box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+    }
+    .button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(45deg);
+      transition: all 0.5s ease;
+      opacity: 0;
+    }
+    .button:hover::before {
+      animation: shine 1.5s ease-in-out infinite;
+      opacity: 1;
+    }
+    @keyframes shine {
+      0% {
+        left: -50%;
+      }
+      100% {
+        left: 150%;
+      }
+    }
+    .social {
+      margin-top: 20px;
+    }
+    .social a {
+      display: inline-block;
+      margin: 0 10px;
+      color: #1A5D1A;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://pergo-life.fr/logo.png" alt="PergoLife" class="logo">
+      <h1>Confirmation</h1>
+    </div>
+    
+    <div class="content">
+      <p>Bonjour {{to_name}},</p>
+      
+      <p>Nous avons bien reçu votre message concernant "{{original_subject}}".</p>
+      
+      <p>Notre équipe va l'examiner dans les plus brefs délais et vous recontactera prochainement.</p>
+      
+      <p>Voici un récapitulatif de votre demande :</p>
+      <ul>
+        <li><strong>Date :</strong> {{date}}</li>
+        <li><strong>Sujet :</strong> {{original_subject}}</li>
+      </ul>
+      
+      <p>Si vous avez d'autres questions ou besoin d'informations supplémentaires, n'hésitez pas à nous contacter.</p>
+      
+      <div style="text-align: center;">
+        <a href="https://pergo-life.fr" class="button">Visiter notre site</a>
+      </div>
+      
+      <p>Cordialement,</p>
+      <p>L'équipe PergoLife</p>
+    </div>
+    
+    <div class="footer">
+      <p>© 2025 PergoLife - Tous droits réservés</p>
+      <p>830 Route de Bayonne, 40230 Bénesse-Maremne</p>
+      <p>
+        <a href="mailto:contact@pergo-life.fr">contact@pergo-life.fr</a> | 
+        <a href="tel:+33609538979">06 09 53 89 79</a>
+      </p>
+      
+      <div class="social">
+        <a href="https://facebook.com/pergolife">Facebook</a> | 
+        <a href="https://instagram.com/pergolife">Instagram</a>
+      </div>
+      
+      <p style="margin-top: 20px; font-size: 11px;">
+        Vous recevez cet email car vous avez contacté PergoLife ou vous êtes inscrit à notre newsletter.
+        <br>
+        Pour vous désinscrire, <a href="https://pergo-life.fr/unsubscribe">cliquez ici</a>.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

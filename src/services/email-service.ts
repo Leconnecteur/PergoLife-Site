@@ -1,10 +1,11 @@
 import emailjs from '@emailjs/browser';
+import { emailJSConfig } from '@/config/emailjs.config';
 
-// Constantes pour EmailJS
-const SERVICE_ID = 'service_pergolife'; // À remplacer par votre ID de service EmailJS
-const CONTACT_TEMPLATE_ID = 'template_contact_pergolife'; // À remplacer par votre ID de template pour le formulaire de contact
-const NEWSLETTER_TEMPLATE_ID = 'template_newsletter_pergolife'; // À remplacer par votre ID de template pour la newsletter
-const PUBLIC_KEY = 'YOUR_PUBLIC_KEY'; // À remplacer par votre clé publique EmailJS
+// Constantes pour EmailJS depuis la configuration
+const SERVICE_ID = emailJSConfig.serviceId;
+const CONTACT_TEMPLATE_ID = emailJSConfig.contactTemplateId;
+const CONFIRMATION_TEMPLATE_ID = emailJSConfig.confirmationTemplateId;
+const PUBLIC_KEY = emailJSConfig.publicKey;
 
 /**
  * Envoie un email avec les informations du formulaire de contact
@@ -19,6 +20,7 @@ export const sendContactForm = async (formData: {
   message: string;
 }) => {
   try {
+    // 1. Envoi de l'email au propriétaire du site
     const response = await emailjs.send(
       SERVICE_ID,
       CONTACT_TEMPLATE_ID,
@@ -40,33 +42,15 @@ export const sendContactForm = async (formData: {
       PUBLIC_KEY
     );
     
-    return {
-      success: true,
-      message: 'Votre message a été envoyé avec succès !',
-      response
-    };
-  } catch (error) {
-    console.error('Erreur lors de l\'envoi du formulaire de contact:', error);
-    return {
-      success: false,
-      message: 'Une erreur est survenue lors de l\'envoi du message. Veuillez réessayer.',
-      error
-    };
-  }
-};
-
-/**
- * Envoie un email avec les informations d'inscription à la newsletter
- * @param email L'email de la personne qui s'inscrit à la newsletter
- * @returns Promise avec le résultat de l'envoi
- */
-export const subscribeToNewsletter = async (email: string) => {
-  try {
-    const response = await emailjs.send(
+    // 2. Envoi d'un email de confirmation au client
+    await emailjs.send(
       SERVICE_ID,
-      NEWSLETTER_TEMPLATE_ID,
+      CONFIRMATION_TEMPLATE_ID,
       {
-        subscriber_email: email,
+        to_name: formData.name,
+        to_email: formData.email,
+        subject: `Confirmation de votre demande : ${formData.subject}`,
+        original_subject: formData.subject,
         date: new Date().toLocaleString('fr-FR', {
           day: '2-digit',
           month: '2-digit',
@@ -80,14 +64,77 @@ export const subscribeToNewsletter = async (email: string) => {
     
     return {
       success: true,
-      message: 'Inscription à la newsletter réussie !',
+      message: emailJSConfig.contactSuccessMessage,
+      response
+    };
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi du formulaire de contact:', error);
+    return {
+      success: false,
+      message: emailJSConfig.contactErrorMessage,
+      error
+    };
+  }
+};
+
+/**
+ * Envoie un email avec les informations d'inscription à la newsletter
+ * @param email L'email de la personne qui s'inscrit à la newsletter
+ * @returns Promise avec le résultat de l'envoi
+ */
+export const subscribeToNewsletter = async (email: string) => {
+  try {
+    // 1. Notification au propriétaire du site d'une nouvelle inscription via le template de confirmation
+    const response = await emailjs.send(
+      SERVICE_ID,
+      CONTACT_TEMPLATE_ID,
+      {
+        from_name: 'Inscription Newsletter',
+        from_email: email,
+        from_phone: 'Non renseigné',
+        subject: 'Nouvelle inscription à la newsletter',
+        message: `Nouvelle inscription à la newsletter: ${email}`,
+        reply_to: email,
+        date: new Date().toLocaleString('fr-FR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      },
+      PUBLIC_KEY
+    );
+    
+    // 2. Email de confirmation à l'abonné
+    await emailjs.send(
+      SERVICE_ID,
+      CONFIRMATION_TEMPLATE_ID,
+      {
+        to_email: email,
+        subject: 'Confirmation d\'inscription à la newsletter PergoLife',
+        message: 'Merci de vous être inscrit à notre newsletter. Vous recevrez désormais nos actualités et offres exclusives directement dans votre boîte mail.',
+        date: new Date().toLocaleString('fr-FR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })
+      },
+      PUBLIC_KEY
+    );
+    
+    return {
+      success: true,
+      message: emailJSConfig.newsletterSuccessMessage,
       response
     };
   } catch (error) {
     console.error('Erreur lors de l\'inscription à la newsletter:', error);
     return {
       success: false,
-      message: 'Une erreur est survenue lors de l\'inscription à la newsletter. Veuillez réessayer.',
+      message: emailJSConfig.newsletterErrorMessage,
       error
     };
   }
@@ -95,7 +142,9 @@ export const subscribeToNewsletter = async (email: string) => {
 
 /**
  * Initialise EmailJS
+ * Cette fonction doit être appelée au démarrage de l'application
  */
 export const initEmailJS = () => {
   emailjs.init(PUBLIC_KEY);
+  console.log('EmailJS initialisé avec succès');
 };
