@@ -140,8 +140,8 @@ const Navbar = () => {
         className={cn(
           "fixed left-0 right-0 z-50 transition-all duration-300 ease-in-out px-6",
           isScrolled 
-            ? "top-0 lg:top-10 py-3 bg-white/95 shadow-sm backdrop-blur-md" 
-            : "top-0 py-5 bg-gradient-to-b from-pergo-dark/80 to-transparent backdrop-blur-sm"
+            ? "top-0 lg:top-10 py-1 bg-white/95 shadow-sm backdrop-blur-md" 
+            : "top-0 py-2 bg-gradient-to-b from-pergo-dark/80 to-transparent backdrop-blur-sm"
         )}
       >
         <div className="container mx-auto">
@@ -150,15 +150,15 @@ const Navbar = () => {
             <Link to="/" className={cn(
               "flex items-center z-50 transition-all duration-300",
               isScrolled 
-                ? "bg-white rounded-lg" 
-                : "bg-white/90 backdrop-blur-sm rounded-lg p-1"
+                ? "bg-white rounded-lg p-0.5" 
+                : isMobile ? "bg-white/90 backdrop-blur-sm rounded-lg p-0.5" : "bg-white/90 backdrop-blur-sm rounded-lg p-1"
             )}>
               <img 
                 src="/lovable-uploads/b065ac33-5cfa-4e4a-9562-68b8b59fa563.png" 
                 alt="PergoLife" 
                 className={cn(
                   "transition-all duration-300",
-                  isScrolled ? "h-12 md:h-14" : "h-14 md:h-16"
+                  isScrolled ? "h-14 md:h-20" : "h-16 md:h-24"
                 )}
               />
             </Link>
@@ -279,7 +279,7 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/b065ac33-5cfa-4e4a-9562-68b8b59fa563.png" 
               alt="PergoLife" 
-              className="h-20" 
+              className="h-40" 
               loading="eager"
             />
           </Link>
