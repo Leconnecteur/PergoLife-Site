@@ -32,6 +32,7 @@ export const sendContactForm = async (formData: {
         subject: formData.subject,
         message: formData.message,
         reply_to: formData.email,
+        to_email: emailJSConfig.siteOwnerEmail, // Ajout de l'adresse du destinataire
         date: new Date().toLocaleString('fr-FR', {
           day: '2-digit',
           month: '2-digit',
@@ -43,26 +44,32 @@ export const sendContactForm = async (formData: {
       PUBLIC_KEY
     );
     
-    // 2. Envoi d'un email de confirmation au client
-    // Utilisation du template avec l'adresse email par défaut du compte EmailJS
-    await emailjs.send(
-      SERVICE_ID,
-      CONFIRMATION_TEMPLATE_ID,
-      {
-        to_name: formData.name,
-        to_email: formData.email,
-        subject: `Confirmation de votre demande : ${formData.subject}`,
-        original_subject: formData.subject,
-        date: new Date().toLocaleString('fr-FR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      },
-      PUBLIC_KEY
-    );
+    // 2. Envoi d'un email de confirmation au client (optionnel)
+    // Nous essayons d'envoyer l'email de confirmation, mais nous continuons même en cas d'erreur
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        CONFIRMATION_TEMPLATE_ID,
+        {
+          to_name: formData.name,
+          to_email: formData.email,
+          subject: `Confirmation de votre demande : ${formData.subject}`,
+          original_subject: formData.subject,
+          date: new Date().toLocaleString('fr-FR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        },
+        PUBLIC_KEY
+      );
+      console.log('Email de confirmation envoyé avec succès');
+    } catch (confirmationError) {
+      // Nous ignorons cette erreur car l'email principal a été envoyé avec succès
+      console.log('Erreur lors de l\'envoi de l\'email de confirmation, mais l\'email principal a été envoyé');
+    }
     
     return {
       success: true,
@@ -98,6 +105,7 @@ export const subscribeToNewsletter = async (email: string) => {
         subject: 'Nouvelle inscription à la newsletter',
         message: `Nouvelle inscription à la newsletter: ${email}`,
         reply_to: email,
+        to_email: emailJSConfig.siteOwnerEmail, // Ajout de l'adresse du destinataire
         date: new Date().toLocaleString('fr-FR', {
           day: '2-digit',
           month: '2-digit',
@@ -109,26 +117,32 @@ export const subscribeToNewsletter = async (email: string) => {
       PUBLIC_KEY
     );
     
-    // 2. Email de confirmation à l'abonné
-    // Utilisation du template avec l'adresse email par défaut du compte EmailJS
-    await emailjs.send(
-      SERVICE_ID,
-      CONFIRMATION_TEMPLATE_ID,
-      {
-        to_name: 'Nouvel abonné',
-        to_email: email,
-        subject: 'Confirmation d\'inscription à la newsletter PergoLife',
-        message: 'Merci de vous être inscrit à notre newsletter. Vous recevrez désormais nos actualités et offres exclusives directement dans votre boîte mail.',
-        date: new Date().toLocaleString('fr-FR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      },
-      PUBLIC_KEY
-    );
+    // 2. Email de confirmation à l'abonné (optionnel)
+    // Nous essayons d'envoyer l'email de confirmation, mais nous continuons même en cas d'erreur
+    try {
+      await emailjs.send(
+        SERVICE_ID,
+        CONFIRMATION_TEMPLATE_ID,
+        {
+          to_name: 'Nouvel abonné',
+          to_email: email,
+          subject: 'Confirmation d\'inscription à la newsletter PergoLife',
+          message: 'Merci de vous être inscrit à notre newsletter. Vous recevrez désormais nos actualités et offres exclusives directement dans votre boîte mail.',
+          date: new Date().toLocaleString('fr-FR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })
+        },
+        PUBLIC_KEY
+      );
+      console.log('Email de confirmation newsletter envoyé avec succès');
+    } catch (confirmationError) {
+      // Nous ignorons cette erreur car l'email principal a été envoyé avec succès
+      console.log('Erreur lors de l\'envoi de l\'email de confirmation newsletter, mais la notification a été envoyée');
+    }
     
     return {
       success: true,
