@@ -141,7 +141,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between text-gray-400 text-sm">
-          <p> {currentYear} PergoLife. Tous droits réservés par <a href="https://leconnecteurdigital.fr/" target="_blank" rel="noopener noreferrer" className="text-pergo-secondary hover:text-white transition-colors duration-300">Le Connecteur Digital</a></p>
+          <p> {currentYear} PergoLife. Tous droits réservés par <a href="https://connecteurdigital.fr/" target="_blank" rel="noopener noreferrer" className="text-pergo-secondary hover:text-white transition-colors duration-300">Le Connecteur Digital</a></p>
           <div className="mt-4 md:mt-0 flex gap-6">
             <Link to="/legal" className="hover:text-pergo-secondary transition-colors duration-300">
               Mentions légales
