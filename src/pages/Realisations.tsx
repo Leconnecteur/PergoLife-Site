@@ -95,7 +95,7 @@ const projectsData: Project[] = [
   {
     id: 6,
     title: "Portail moderne en aluminium",
-    category: "Portails",
+    category: "",
     location: "Toulouse",
     imageUrl: "/images/realisations/portail1.jpg",
     description: "Installation d'un portail moderne en aluminium avec système d'ouverture motorisée.",
@@ -290,7 +290,7 @@ const Realisations = () => {
     return (
       <>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 reveal-on-scroll">
-          {filteredProjects.slice(0, visibleProjects).map((project) => (
+          {filteredProjects.slice(0, visibleProjects).map((project, index) => (
             <div
               key={project.id}
               className="group bg-white rounded-lg shadow-md overflow-hidden hover-lift transition-all duration-300 hover:shadow-xl cursor-pointer"
@@ -309,11 +309,6 @@ const Realisations = () => {
                     <span className="absolute inset-0 bg-gradient-to-r from-pergo-green/30 via-pergo-green/50 to-pergo-green/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg"></span>
                   </span>
                 </div>
-              </div>
-              <div className="absolute top-4 left-4 z-10">
-                <span className="inline-block px-3 py-1 bg-white/90 text-pergo-green text-xs font-medium rounded-full shadow-sm">
-                  {project.category}
-                </span>
               </div>
             </div>
           ))}
@@ -348,7 +343,7 @@ const Realisations = () => {
           className="w-full"
         >
           <CarouselContent>
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, index) => (
               <CarouselItem key={project.id} className="pl-4 basis-full sm:basis-1/2">
                 <div
                   className="group bg-white rounded-lg shadow-md overflow-hidden block h-full cursor-pointer"
@@ -368,11 +363,7 @@ const Realisations = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="inline-block px-3 py-1 bg-white/90 text-pergo-green text-xs font-medium rounded-full shadow-sm">
-                      {project.category}
-                    </span>
-                  </div>
+
                 </div>
               </CarouselItem>
             ))}
